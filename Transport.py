@@ -184,3 +184,45 @@ class Plane(Transport):
         movement.text = self.speed
 
         return root
+
+
+class Helicopter(Transport):
+
+    def __init__(self):
+        super().__init__()
+        self.name = input("Enter helicopter name: ")
+
+        while True:
+            try:  # проверка правильности ввода данных
+                self.price = float(input("Enter price of helicopter:"))
+                if self.price <= 0:
+                    raise ValueError  # бросаем ошибку если что то не так
+                break
+            except ValueError:
+                print("Invalid input for price")  # сообщение об ошибке
+
+        self.rpm = input("Enter rpm of helicopter:")
+
+    def info(self):
+        print(f"Moving {self.name}(brrrrrr)")
+        print(f"Price of {self.name}: {self.price}")
+        print(f"Rpm is {self.rpm}")
+
+    def to_json(self, filename):  # метод для парсинга json в текстовый файл
+        return {
+            "type": "helicopter",
+            "name": self.name,
+            "price": self.price,
+            "rpm": self.rpm
+        }
+
+    def to_xml(self, filename):  # метод для парсинго xml в текстовый файл
+        root = ET.Element("helicopter")
+        name = ET.SubElement(root, "name")
+        name.text = self.name
+        price = ET.SubElement(root, "price")
+        price.text = str(self.price)
+        movement = ET.SubElement(root, "rpm")
+        movement.text = self.rpm
+
+        return root
