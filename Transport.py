@@ -189,7 +189,6 @@ class Plane(Transport):
 class Helicopter(Transport):
 
     def __init__(self):
-        super().__init__()
         self.name = input("Enter helicopter name: ")
 
         while True:
@@ -224,5 +223,46 @@ class Helicopter(Transport):
         price.text = str(self.price)
         movement = ET.SubElement(root, "rpm")
         movement.text = self.rpm
+
+        return root
+
+
+class Submarine(Transport):
+
+    def __init__(self):
+        self.name = input("Enter submarine name: ")
+
+        while True:
+            try:  # проверка правильности ввода данных
+                self.price = float(input("Enter price of submarine:"))
+                if self.price <= 0:
+                    raise ValueError  # бросаем ошибку если что то не так
+                break
+            except ValueError:
+                print("Invalid input for price")  # сообщение об ошибке
+
+        self.divingDepth = input("Enter diving depth of submarine:")
+
+    def info(self):
+        print(f"Moving {self.name}(brrrrrr)")
+        print(f"Price of {self.name}: {self.price}")
+        print(f"Diving depth is {self.divingDepth}")
+
+    def to_json(self, filename):  # метод для парсинга json в текстовый файл
+        return {
+            "type": "submarine",
+            "name": self.name,
+            "price": self.price,
+            "divingDepth": self.divingDepth
+        }
+
+    def to_xml(self, filename):  # метод для парсинго xml в текстовый файл
+        root = ET.Element("submarine")
+        name = ET.SubElement(root, "name")
+        name.text = self.name
+        price = ET.SubElement(root, "price")
+        price.text = str(self.price)
+        movement = ET.SubElement(root, "divingDepth")
+        movement.text = self.divingDepth
 
         return root
