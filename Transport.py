@@ -5,9 +5,9 @@ import xml.etree.ElementTree as ET
 # интерфейс предметной области
 class Transport(ABC):
 
+    @abstractmethod
     def __init__(self):
-        self.name = input("Enter name: ")
-        self.price = float(input("Enter price of transport: "))
+        pass
 
     @abstractmethod  # абстрактные методы для реализации дочерних класс
     def info(self):
@@ -25,7 +25,6 @@ class Transport(ABC):
 class Car(Transport):
 
     def __init__(self):
-        super().__init__()
         self.name = input("Enter car name: ")
 
         while True:
@@ -67,7 +66,6 @@ class Car(Transport):
 class Truck(Transport):
 
     def __init__(self):
-        super().__init__()
         self.name = input("Enter truck name: ")
 
         while True:
@@ -109,7 +107,6 @@ class Truck(Transport):
 class Bus(Transport):
 
     def __init__(self):
-        super().__init__()
         self.name = input("Enter bus name: ")
 
         while True:
@@ -144,5 +141,46 @@ class Bus(Transport):
         price.text = str(self.price)
         movement = ET.SubElement(root, "maxPassengers")
         movement.text = self.maxPassengers
+
+        return root
+
+
+class Plane(Transport):
+
+    def __init__(self):
+        self.name = input("Enter plane name: ")
+
+        while True:
+            try:  # проверка правильности ввода данных
+                self.price = float(input("Enter price of plane:"))
+                if self.price <= 0:
+                    raise ValueError  # бросаем ошибку если что то не так
+                break
+            except ValueError:
+                print("Invalid input for price")  # сообщение об ошибке
+
+        self.speed = input("Enter speed of plane:")
+
+    def info(self):
+        print(f"Moving {self.name}(brrrrrr)")
+        print(f"Price of {self.name}: {self.price}")
+        print(f"Speed is {self.speed}")
+
+    def to_json(self, filename):  # метод для парсинга json в текстовый файл
+        return {
+            "type": "plane",
+            "name": self.name,
+            "price": self.price,
+            "speed": self.speed
+        }
+
+    def to_xml(self, filename):  # метод для парсинго xml в текстовый файл
+        root = ET.Element("plane")
+        name = ET.SubElement(root, "name")
+        name.text = self.name
+        price = ET.SubElement(root, "price")
+        price.text = str(self.price)
+        movement = ET.SubElement(root, "plane")
+        movement.text = self.speed
 
         return root
