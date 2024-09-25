@@ -79,19 +79,19 @@ class Truck(Transport):
             except ValueError:
                 print("Invalid input for price")  # сообщение об ошибке
 
-        self.movementType = input("Enter movement type of truck:")
+        self.loadCapacity = input("Enter load capacity of truck:")
 
     def info(self):
         print(f"Moving {self.name}(brrrrrr)")
         print(f"Price of {self.name}: {self.price}")
-        print(f"Movement type is {self.movementType}")
+        print(f"Load capacity is {self.loadCapacity}")
 
     def to_json(self, filename):  # метод для парсинга json в текстовый файл
         return {
             "type": "truck",
             "name": self.name,
             "price": self.price,
-            "movementType": self.movementType
+            "loadCapacity": self.loadCapacity
         }
 
     def to_xml(self, filename):  # метод для парсинго xml в текстовый файл
@@ -100,7 +100,49 @@ class Truck(Transport):
         name.text = self.name
         price = ET.SubElement(root, "price")
         price.text = str(self.price)
-        movement = ET.SubElement(root, "movementType")
-        movement.text = self.movementType
+        movement = ET.SubElement(root, "loadCapacity")
+        movement.text = self.loadCapacity
+
+        return root
+
+
+class Bus(Transport):
+
+    def __init__(self):
+        super().__init__()
+        self.name = input("Enter bus name: ")
+
+        while True:
+            try:  # проверка правильности ввода данных
+                self.price = float(input("Enter price of bus:"))
+                if self.price <= 0:
+                    raise ValueError  # бросаем ошибку если что то не так
+                break
+            except ValueError:
+                print("Invalid input for price")  # сообщение об ошибке
+
+        self.maxPassengers = input("Enter maximum passengers of bus:")
+
+    def info(self):
+        print(f"Moving {self.name}(brrrrrr)")
+        print(f"Price of {self.name}: {self.price}")
+        print(f"Max passengers is {self.maxPassengers}")
+
+    def to_json(self, filename):  # метод для парсинга json в текстовый файл
+        return {
+            "type": "bus",
+            "name": self.name,
+            "price": self.price,
+            "maxPassengers": self.maxPassengers
+        }
+
+    def to_xml(self, filename):  # метод для парсинго xml в текстовый файл
+        root = ET.Element("bus")
+        name = ET.SubElement(root, "name")
+        name.text = self.name
+        price = ET.SubElement(root, "price")
+        price.text = str(self.price)
+        movement = ET.SubElement(root, "maxPassengers")
+        movement.text = self.maxPassengers
 
         return root
