@@ -1,7 +1,7 @@
 # базовый класс
 class Transport:
 
-    def __init__(self, name, price):
+    def __init__(self, name: str, price: int):
         self.name = name
         self.price = price
 
@@ -14,71 +14,71 @@ class Transport:
 
 class Car(Transport):
 
-    def __init__(self, name, price, movementType):
+    def __init__(self, name: str, price: int, movement_type: str):
         super().__init__(name, price)
-        self.movementType = movementType
+        self.movement_type = movement_type
 
     def make_dict(self):
         car_dict = super().make_dict()
-        car_dict["movementType"] = self.movementType
+        car_dict["movementType"] = self.movement_type
         return car_dict
 
 
 class Truck(Transport):
 
-    def __init__(self, name, price, loadCapacity):
+    def __init__(self, name: str, price: int, load_capacity: int):
         super().__init__(name, price)
-        self.loadCapacity = loadCapacity
+        self.load_capacity = load_capacity
 
     def make_dict(self):
         truck_dict = super().make_dict()
-        truck_dict["loadCapacity"] = self.loadCapacity
+        truck_dict["load_capacity"] = self.load_capacity
         return truck_dict
 
 
 class Bus(Transport):
 
-    def __init__(self, name, price, maxPassengers):
+    def __init__(self, name: str, price: int, max_passengers: int):
         super().__init__(name, price)
-        self.maxPassengers = maxPassengers
+        self.max_passengers = max_passengers
 
     def make_dict(self):
-        truck_dict = super().make_dict()
-        truck_dict["maxPassengers"] = self.maxPassengers
-        return truck_dict
+        bus_dict = super().make_dict()
+        bus_dict["max_passengers"] = self.max_passengers
+        return bus_dict
 
 
 class Plane(Transport):
 
-    def __init__(self, name, price, speed):
+    def __init__(self, name: str, price: int, speed: int):
         super().__init__(name, price)
         self.speed = speed
 
     def make_dict(self):
-        truck_dict = super().make_dict()
-        truck_dict["speed"] = self.speed
-        return truck_dict
+        plane_dict = super().make_dict()
+        plane_dict["speed"] = self.speed
+        return plane_dict
 
 
 class Helicopter(Transport):
 
-    def __init__(self, name, price, rpm):
+    def __init__(self, name: str, price: int, rpm: int):
         super().__init__(name, price)
         self.rpm = rpm
 
     def make_dict(self):
-        truck_dict = super().make_dict()
-        truck_dict["rpm"] = self.rpm
-        return truck_dict
+        helicopter_dict = super().make_dict()
+        helicopter_dict["rpm"] = self.rpm
+        return helicopter_dict
 
 
 class Submarine(Transport):
 
-    def __init__(self, name, price, divingDepth):
+    def __init__(self, name: str, price: int, diving_depth: int):
         super().__init__(name, price)
-        self.divingDepth = divingDepth
+        self.diving_depth = diving_depth
 
     def make_dict(self):
-        truck_dict = super().make_dict()
-        truck_dict["divingDepth"] = self.divingDepth
-        return truck_dict
+        submarine_dict = super().make_dict()
+        submarine_dict["diving_depth"] = self.diving_depth
+        return submarine_dict
