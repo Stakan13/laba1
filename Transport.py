@@ -1,268 +1,84 @@
-from abc import ABC, abstractmethod
-import xml.etree.ElementTree as ET
+# базовый класс
+class Transport:
 
+    def __init__(self, name, price):
+        self.name = name
+        self.price = price
 
-# интерфейс предметной области
-class Transport(ABC):
-
-    @abstractmethod
-    def __init__(self):
-        pass
-
-    @abstractmethod  # абстрактные методы для реализации дочерних класс
-    def info(self):
-        pass
-
-    @abstractmethod
-    def to_json(self, filename):
-        pass
-
-    @abstractmethod
-    def to_xml(self, filename):
-        pass
+    def make_dict(self):
+        return {
+            "name": self.name,
+            "price": self.price,
+        }
 
 
 class Car(Transport):
 
-    def __init__(self):
-        self.name = input("Enter car name: ")
+    def __init__(self, name, price, movementType):
+        super().__init__(name, price)
+        self.movementType = movementType
 
-        while True:
-            try:  # проверка правильности ввода данных
-                self.price = float(input("Enter price of transport:"))
-                if self.price <= 0:
-                    raise ValueError  # бросаем ошибку если что то не так
-                break
-            except ValueError:
-                print("Invalid input for price")  # сообщение об ошибке
-
-        self.movementType = input("Enter movement type of transport:")
-
-    def info(self):
-        print(f"Moving {self.name}(brrrrrr)")
-        print(f"Price of {self.name}: {self.price}")
-        print(f"Movement type is {self.movementType}")
-
-    def to_json(self, filename):  # метод для парсинга json в текстовый файл
-        return {
-            "type": "car",
-            "name": self.name,
-            "price": self.price,
-            "movementType": self.movementType
-        }
-
-    def to_xml(self, filename):  # метод для парсинго xml в текстовый файл
-        root = ET.Element("car")
-        name = ET.SubElement(root, "name")
-        name.text = self.name
-        price = ET.SubElement(root, "price")
-        price.text = str(self.price)
-        movement = ET.SubElement(root, "movementType")
-        movement.text = self.movementType
-
-        return root
+    def make_dict(self):
+        car_dict = super().make_dict()
+        car_dict["movementType"] = self.movementType
+        return car_dict
 
 
 class Truck(Transport):
 
-    def __init__(self):
-        self.name = input("Enter truck name: ")
+    def __init__(self, name, price, loadCapacity):
+        super().__init__(name, price)
+        self.loadCapacity = loadCapacity
 
-        while True:
-            try:  # проверка правильности ввода данных
-                self.price = float(input("Enter price of truck:"))
-                if self.price <= 0:
-                    raise ValueError  # бросаем ошибку если что то не так
-                break
-            except ValueError:
-                print("Invalid input for price")  # сообщение об ошибке
-
-        self.loadCapacity = input("Enter load capacity of truck:")
-
-    def info(self):
-        print(f"Moving {self.name}(brrrrrr)")
-        print(f"Price of {self.name}: {self.price}")
-        print(f"Load capacity is {self.loadCapacity}")
-
-    def to_json(self, filename):  # метод для парсинга json в текстовый файл
-        return {
-            "type": "truck",
-            "name": self.name,
-            "price": self.price,
-            "loadCapacity": self.loadCapacity
-        }
-
-    def to_xml(self, filename):  # метод для парсинго xml в текстовый файл
-        root = ET.Element("truck")
-        name = ET.SubElement(root, "name")
-        name.text = self.name
-        price = ET.SubElement(root, "price")
-        price.text = str(self.price)
-        movement = ET.SubElement(root, "loadCapacity")
-        movement.text = self.loadCapacity
-
-        return root
+    def make_dict(self):
+        truck_dict = super().make_dict()
+        truck_dict["loadCapacity"] = self.loadCapacity
+        return truck_dict
 
 
 class Bus(Transport):
 
-    def __init__(self):
-        self.name = input("Enter bus name: ")
+    def __init__(self, name, price, maxPassengers):
+        super().__init__(name, price)
+        self.maxPassengers = maxPassengers
 
-        while True:
-            try:  # проверка правильности ввода данных
-                self.price = float(input("Enter price of bus:"))
-                if self.price <= 0:
-                    raise ValueError  # бросаем ошибку если что то не так
-                break
-            except ValueError:
-                print("Invalid input for price")  # сообщение об ошибке
-
-        self.maxPassengers = input("Enter maximum passengers of bus:")
-
-    def info(self):
-        print(f"Moving {self.name}(brrrrrr)")
-        print(f"Price of {self.name}: {self.price}")
-        print(f"Max passengers is {self.maxPassengers}")
-
-    def to_json(self, filename):  # метод для парсинга json в текстовый файл
-        return {
-            "type": "bus",
-            "name": self.name,
-            "price": self.price,
-            "maxPassengers": self.maxPassengers
-        }
-
-    def to_xml(self, filename):  # метод для парсинго xml в текстовый файл
-        root = ET.Element("bus")
-        name = ET.SubElement(root, "name")
-        name.text = self.name
-        price = ET.SubElement(root, "price")
-        price.text = str(self.price)
-        movement = ET.SubElement(root, "maxPassengers")
-        movement.text = self.maxPassengers
-
-        return root
+    def make_dict(self):
+        truck_dict = super().make_dict()
+        truck_dict["maxPassengers"] = self.maxPassengers
+        return truck_dict
 
 
 class Plane(Transport):
 
-    def __init__(self):
-        self.name = input("Enter plane name: ")
+    def __init__(self, name, price, speed):
+        super().__init__(name, price)
+        self.speed = speed
 
-        while True:
-            try:  # проверка правильности ввода данных
-                self.price = float(input("Enter price of plane:"))
-                if self.price <= 0:
-                    raise ValueError  # бросаем ошибку если что то не так
-                break
-            except ValueError:
-                print("Invalid input for price")  # сообщение об ошибке
-
-        self.speed = input("Enter speed of plane:")
-
-    def info(self):
-        print(f"Moving {self.name}(brrrrrr)")
-        print(f"Price of {self.name}: {self.price}")
-        print(f"Speed is {self.speed}")
-
-    def to_json(self, filename):  # метод для парсинга json в текстовый файл
-        return {
-            "type": "plane",
-            "name": self.name,
-            "price": self.price,
-            "speed": self.speed
-        }
-
-    def to_xml(self, filename):  # метод для парсинго xml в текстовый файл
-        root = ET.Element("plane")
-        name = ET.SubElement(root, "name")
-        name.text = self.name
-        price = ET.SubElement(root, "price")
-        price.text = str(self.price)
-        movement = ET.SubElement(root, "plane")
-        movement.text = self.speed
-
-        return root
+    def make_dict(self):
+        truck_dict = super().make_dict()
+        truck_dict["speed"] = self.speed
+        return truck_dict
 
 
 class Helicopter(Transport):
 
-    def __init__(self):
-        self.name = input("Enter helicopter name: ")
+    def __init__(self, name, price, rpm):
+        super().__init__(name, price)
+        self.rpm = rpm
 
-        while True:
-            try:  # проверка правильности ввода данных
-                self.price = float(input("Enter price of helicopter:"))
-                if self.price <= 0:
-                    raise ValueError  # бросаем ошибку если что то не так
-                break
-            except ValueError:
-                print("Invalid input for price")  # сообщение об ошибке
-
-        self.rpm = input("Enter rpm of helicopter:")
-
-    def info(self):
-        print(f"Moving {self.name}(brrrrrr)")
-        print(f"Price of {self.name}: {self.price}")
-        print(f"Rpm is {self.rpm}")
-
-    def to_json(self, filename):  # метод для парсинга json в текстовый файл
-        return {
-            "type": "helicopter",
-            "name": self.name,
-            "price": self.price,
-            "rpm": self.rpm
-        }
-
-    def to_xml(self, filename):  # метод для парсинго xml в текстовый файл
-        root = ET.Element("helicopter")
-        name = ET.SubElement(root, "name")
-        name.text = self.name
-        price = ET.SubElement(root, "price")
-        price.text = str(self.price)
-        movement = ET.SubElement(root, "rpm")
-        movement.text = self.rpm
-
-        return root
+    def make_dict(self):
+        truck_dict = super().make_dict()
+        truck_dict["rpm"] = self.rpm
+        return truck_dict
 
 
 class Submarine(Transport):
 
-    def __init__(self):
-        self.name = input("Enter submarine name: ")
+    def __init__(self, name, price, divingDepth):
+        super().__init__(name, price)
+        self.divingDepth = divingDepth
 
-        while True:
-            try:  # проверка правильности ввода данных
-                self.price = float(input("Enter price of submarine:"))
-                if self.price <= 0:
-                    raise ValueError  # бросаем ошибку если что то не так
-                break
-            except ValueError:
-                print("Invalid input for price")  # сообщение об ошибке
-
-        self.divingDepth = input("Enter diving depth of submarine:")
-
-    def info(self):
-        print(f"Moving {self.name}(brrrrrr)")
-        print(f"Price of {self.name}: {self.price}")
-        print(f"Diving depth is {self.divingDepth}")
-
-    def to_json(self, filename):  # метод для парсинга json в текстовый файл
-        return {
-            "type": "submarine",
-            "name": self.name,
-            "price": self.price,
-            "divingDepth": self.divingDepth
-        }
-
-    def to_xml(self, filename):  # метод для парсинго xml в текстовый файл
-        root = ET.Element("submarine")
-        name = ET.SubElement(root, "name")
-        name.text = self.name
-        price = ET.SubElement(root, "price")
-        price.text = str(self.price)
-        movement = ET.SubElement(root, "divingDepth")
-        movement.text = self.divingDepth
-
-        return root
+    def make_dict(self):
+        truck_dict = super().make_dict()
+        truck_dict["divingDepth"] = self.divingDepth
+        return truck_dict
