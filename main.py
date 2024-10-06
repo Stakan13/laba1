@@ -17,27 +17,27 @@ def print_data(data):
     print("\nData from JSON")
 
     print("\nCars")
-    for car in data:
+    for car in data["cars"]:
         print(f"Name: {car['name']}, Price: {car['price']}, Movement type: {car['movement_type']}")
 
     print("\nTrucks")
-    for truck in data:
+    for truck in data["trucks"]:
         print(f"Name: {truck['name']}, Price: {truck['price']}, Load capacity: {truck['load_capacity']}")
 
     print("\nBuses")
-    for bus in data:
+    for bus in data["buses"]:
         print(f"Name: {bus['name']}, Price: {bus['price']}, Max passengers: {bus['max_passenger']}")
 
     print("\nPlanes")
-    for plane in data:
+    for plane in data["planes"]:
         print(f"Name: {plane['name']}, Price: {plane['price']}, Max passengers: {plane['speed']}")
 
     print("\nHelicopters")
-    for helicopter in data:
+    for helicopter in data["helicopters"]:
         print(f"Name: {helicopter['name']}, Price: {helicopter['price']}, Max passengers: {helicopter['rpm']}")
 
     print("\nSubmarines")
-    for submarine in data:
+    for submarine in data["submarines"]:
         print(f"Name: {submarine['name']}, Price: {submarine['price']}, Max passengers: {submarine['diving_depth']}")
 
 
