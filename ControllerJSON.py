@@ -7,7 +7,7 @@ class OperationJSON:
     def safe_json(data, filename: str):
         try:
             with open(filename, "w", encoding="utf-8") as json_file:
-                json.dump(data, json_file, indent=4, ensure_ascii=False)
+                json.dump(data, json_file, indent=4, ensure_ascii=False, default=lambda o: o.__dict__)
             print("Saved file: " + filename)
         except IOError as e:
             print("error when starting json file: " + str(e))
@@ -18,7 +18,7 @@ class OperationJSON:
             with open(filename, "r", encoding="utf-8") as js:
                 result = json.load(js)
                 return result
-        except FileNotFoundError:
+        except (FileNotFoundError, json.decoder.JSONDecodeError):
             return {"cars": [], "trucks": [], "buses": [], "planes": [],
                     "helicopters": [], "submarines": []}
 
