@@ -5,6 +5,9 @@ class Transport:
         self.name = name
         self.price = price
 
+    def __getitem__(self, item):
+        pass
+
     def make_dict(self):
         return {
             "name": self.name,
@@ -18,6 +21,9 @@ class Car(Transport):
         super().__init__(name, price)
         self.movement_type = movement_type
 
+    def __getitem__(self, item):
+        return getattr(self, item)
+
     def make_dict(self):
         car_dict = super().make_dict()
         car_dict["movementType"] = self.movement_type
@@ -29,6 +35,9 @@ class Truck(Transport):
     def __init__(self, name: str, price: int, load_capacity: int):
         super().__init__(name, price)
         self.load_capacity = load_capacity
+
+    def __getitem__(self, item):
+        return getattr(self, item)
 
     def make_dict(self):
         truck_dict = super().make_dict()
@@ -42,6 +51,9 @@ class Bus(Transport):
         super().__init__(name, price)
         self.max_passengers = max_passengers
 
+    def __getitem__(self, item):
+        return getattr(self, item)
+
     def make_dict(self):
         bus_dict = super().make_dict()
         bus_dict["max_passengers"] = self.max_passengers
@@ -53,6 +65,9 @@ class Plane(Transport):
     def __init__(self, name: str, price: int, speed: int):
         super().__init__(name, price)
         self.speed = speed
+
+    def __getitem__(self, item):
+        return getattr(self, item)
 
     def make_dict(self):
         plane_dict = super().make_dict()
@@ -66,6 +81,9 @@ class Helicopter(Transport):
         super().__init__(name, price)
         self.rpm = rpm
 
+    def __getitem__(self, item):
+        return getattr(self, item)
+
     def make_dict(self):
         helicopter_dict = super().make_dict()
         helicopter_dict["rpm"] = self.rpm
@@ -77,6 +95,9 @@ class Submarine(Transport):
     def __init__(self, name: str, price: int, diving_depth: int):
         super().__init__(name, price)
         self.diving_depth = diving_depth
+
+    def __getitem__(self, item):
+        return getattr(self, item)
 
     def make_dict(self):
         submarine_dict = super().make_dict()

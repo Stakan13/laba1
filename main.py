@@ -26,7 +26,7 @@ def print_data(data):
 
     print("\nBuses")
     for bus in data["buses"]:
-        print(f"Name: {bus['name']}, Price: {bus['price']}, Max passengers: {bus['max_passenger']}")
+        print(f"Name: {bus['name']}, Price: {bus['price']}, Max passengers: {bus['max_passengers']}")
 
     print("\nPlanes")
     for plane in data["planes"]:
